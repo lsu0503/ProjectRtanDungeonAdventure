@@ -2,18 +2,17 @@
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-public class BaseDictionary : GenericSingleton<BaseDictionary>
+public class BaseDictionary<T> : GenericSingleton<BaseDictionary<T>>
 {
-    protected Dictionary<string, GameObject> dict = new Dictionary<string, GameObject>();
+    protected Dictionary<string, T> dict = new Dictionary<string, T>();
 
-    public void AddDict(string key, GameObject content)
+    public void AddDict(string key, T content)
     {
         dict.Add(key, content);
     }
 
-    public virtual GameObject GetDict(string key)
+    public virtual T GetDict(string key)
     {
-        GameObject resultObj = Instantiate(dict[key]);
-        return resultObj;
+        return dict[key];
     }
 }
