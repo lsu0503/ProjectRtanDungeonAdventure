@@ -2,7 +2,7 @@
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-public class BaseDictionary<T> : GenericSingleton<BaseDictionary<T>>
+public class BaseDictionary<T> : MonoBehaviour
 {
     protected Dictionary<string, T> dict = new Dictionary<string, T>();
 

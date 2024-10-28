@@ -10,18 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e659ce140fa74544391960c3e36f050a, type: 3}
-  m_Name: temporaryItem
+  m_Name: Consumable_1
   m_EditorClassIdentifier: 
   itemId: 0
-  itemName: "\uC784\uC2DC \uC544\uC774\uD15C"
-  itemDesc: "\uC5B8\uC820\uAC00 \uC0AC\uB77C\uC9C0\uB294,\n\uADF8 \uC5EC\uC6B4\uC758
-    \uB05D\uC790\uB77D\uC774\uC5EC..."
-  itemPrefab: {fileID: 1601686450971999405, guid: 8a50835d15989e947b1b7a895ba1be4d, type: 3}
+  itemName: "\uD65C\uAE30\uC758 \uAE30\uC6B4"
+  itemDesc: "\uC77C\uC815 \uC2DC\uAC04, \uC2A4\uD14C\uBBF8\uB098\uC758 \uD68C\uBCF5
+    \uC18D\uB3C4\uB97C \uB192\uC778\uB2E4.\n\uB9DB\uC774 \uC788\uB2E4. \uC660\uC9C0\uB294
+    \uBAA8\uB978\uB2E4."
+  itemPrefab: {fileID: 1601686450971999405, guid: 37dc8fb9107623d44aa76aca992bd834, type: 3}
   type: 0
   effectCells:
   - type: 1
-    effectPower: 5
-    effectTime: 30
-  - type: 3
-    effectPower: 25
+    effectPower: 15
     effectTime: 30

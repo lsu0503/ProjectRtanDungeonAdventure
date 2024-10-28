@@ -39,6 +39,12 @@ public class PlayerMovement : CharacterMovement
 
         else
             Move();
+
+        if(transform.position.y < 0)
+        {
+            playerInfo.health.Substract(25);
+            transform.position = new Vector3(Random.Range(-35.0f, 35.0f), 8.5f, Random.Range(-35.0f, 35.0f));
+        }
     }
 
     protected override void GetMoveDir(Vector2 vector)
@@ -49,7 +55,7 @@ public class PlayerMovement : CharacterMovement
 
     private void TryJump()
     {
-        if (characterInfo.GroundCheck())
+        if (characterInfo.isOnGround)
         {
             if (playerInfo.stamina.Substract(playerInfo.jumpCostOnGound))
                 rigid.AddForce(Vector2.up * playerInfo.jumpPowerOnGround, ForceMode.Impulse);
@@ -72,7 +78,7 @@ public class PlayerMovement : CharacterMovement
     {
         if (!isOnDash && moveDir.magnitude > 0.5f)
         {
-            if (characterInfo.GroundCheck())
+            if (characterInfo.isOnGround)
             {
                 if (playerInfo.stamina.Substract(playerInfo.dashCostOnGround))
                 {
@@ -109,7 +115,7 @@ public class PlayerMovement : CharacterMovement
     {
         base.Move();
 
-        if (isSprint && moveDir.magnitude > 0.5f && playerInfo.GroundCheck())
+        if (isSprint && moveDir.magnitude > 0.5f && playerInfo.isOnGround)
         {
             sprintCounter += Time.deltaTime;
             rigid.velocity *= playerInfo.sprintSpeed;

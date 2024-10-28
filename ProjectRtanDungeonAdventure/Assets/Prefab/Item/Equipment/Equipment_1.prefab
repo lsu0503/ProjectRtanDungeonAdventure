@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 7286073379693787059}
   - component: {fileID: 7959486138798107003}
   m_Layer: 9
-  m_Name: Cube_3
+  m_Name: Equipment_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -167,7 +167,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 555d0bc861e06374c86a90bc61eabc3b, type: 2}
+  - {fileID: 2100000, guid: 9c666f676189b2d40a93b6fd8eb79952, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -249,7 +249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 408f50e1f9f195940bf414d4ec0760a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: e844ea7d28b0fec418460ece503ca8dd, type: 2}
+  itemData: {fileID: 11400000, guid: 4bb27cb009a5a954e95e4b3e2f6cffe5, type: 2}
   CommandCanvas: {fileID: 6201178695089707063}
 --- !u!1 &9044444056063292791
 GameObject:
