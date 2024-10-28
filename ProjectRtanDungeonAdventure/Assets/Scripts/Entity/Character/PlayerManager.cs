@@ -3,5 +3,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerManager : GenericSingleton<PlayerManager>
 {
-    public CharacterInfo playerInfo;
+    public PlayerInfo playerInfo;
+    public ItemData curItem = null;
 }

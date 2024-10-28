@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class PlayerInfo : CharacterInfo
 {
@@ -21,6 +22,8 @@ public class PlayerInfo : CharacterInfo
     public float dashTimeOnGround;
     public float dashTimeInAir;
 
+    [SerializeField] private List<EffectCell> effects = new List<EffectCell>();
+
     private void Awake()
     {
         PlayerManager.Instance.playerInfo = this;
@@ -35,11 +38,53 @@ public class PlayerInfo : CharacterInfo
 
     protected override void FixedUpdate()
     {
+        float timeProgress = Time.deltaTime;
+
         base.FixedUpdate();
 
         if(isOnGround && !isOnSprint)
             stamina.Recover();
 
         gem.Recover();
+
+        for(int i = 0; i < effects.Count; i++)
+        {
+            effects[i].effectTime -= timeProgress;
+
+            if (effects[i].effectTime <= 0)
+                EndEffect(effects[i]);
+        }
+    }
+
+    public void AddEffect(EffectCell cell)
+    {
+        effects.Add(cell);
+
+        switch (cell.type)
+        {
+            case EFFECTTYPE.HEALTH:
+                health.recover += cell.effectPower;
+                break;
+
+            case EFFECTTYPE.STAMINA:
+                stamina.recover += cell.effectPower;
+                break;
+        }
+    }
+
+    public void EndEffect(EffectCell cell)
+    {
+        switch(cell.type)
+        {
+            case EFFECTTYPE.HEALTH:
+                health.recover -= cell.effectPower;
+                break;
+
+            case EFFECTTYPE.STAMINA:
+                stamina.recover -= cell.effectPower;
+                break;
+        }
+
+        effects.Remove(cell);
     }
 }
