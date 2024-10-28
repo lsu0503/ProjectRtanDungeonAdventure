@@ -47,7 +47,10 @@ public class InteractionPointer : MonoBehaviour
                 curInteract = curObj.GetComponent<IInteractable>();
 
                 if (curInteract != null)
+                {
                     promptText.SetPromptText(curInteract.GetItemData());
+                    curInteract.DisplayControll(transform);
+                }
             }
         }
 
@@ -55,6 +58,10 @@ public class InteractionPointer : MonoBehaviour
         {
             curObj = null;
             promptText.UnsetPrompt();
+            if(curInteract != null)
+                curInteract.SetUnactiveControll();
+
+            curInteract = null;
         }
     }
 
