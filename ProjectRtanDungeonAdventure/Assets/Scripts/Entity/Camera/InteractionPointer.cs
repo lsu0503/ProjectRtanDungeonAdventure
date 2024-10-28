@@ -69,7 +69,10 @@ public class InteractionPointer : MonoBehaviour
     {
         if(context.phase == InputActionPhase.Started && curInteract != null)
         {
-            curInteract.OnInteract();
+            IInteractable temp = curInteract;
+            curInteract = null;
+            temp.OnInteract();
+
         }
     }
 }
