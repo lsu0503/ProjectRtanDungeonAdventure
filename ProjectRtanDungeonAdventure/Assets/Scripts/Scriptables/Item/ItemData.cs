@@ -4,8 +4,19 @@ using UnityEngine;
 
 public enum EFFECTTYPE
 {
-    HEALTH,
-    STAMINA,
+    HealthRegen,
+    StaminaRegen,
+    HealthMax,
+    StaminaMax,
+    Speed,
+    Jump,
+    Dash,
+}
+
+public enum ITEMTYPE
+{
+    CONSUMABLE,
+    EQUIPMENT
 }
 
 [Serializable]
@@ -24,6 +35,8 @@ public class ItemData : ScriptableObject
     [TextArea] public string itemDesc;
     public GameObject itemPrefab;
 
+    public ITEMTYPE type;
+
     [Header("Effect")]
-    public EffectCell[] effectCell;
+    public EffectCell[] effectCells;
 }

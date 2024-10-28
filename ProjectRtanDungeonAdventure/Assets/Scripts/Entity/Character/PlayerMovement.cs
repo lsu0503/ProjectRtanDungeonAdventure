@@ -107,18 +107,18 @@ public class PlayerMovement : CharacterMovement
 
     protected override void Move()
     {
-        Vector3 dir = transform.forward * moveDir.y + transform.right * moveDir.x;
-        float dirSpeed = (0.7f + (moveDir.y * 0.3f));
-        if (isSprint && dir.magnitude > 0.5f && playerInfo.GroundCheck())
+        base.Move();
+
+        if (isSprint && moveDir.magnitude > 0.5f && playerInfo.GroundCheck())
         {
             sprintCounter += Time.deltaTime;
-            dirSpeed *= playerInfo.sprintSpeed;
+            rigid.velocity *= playerInfo.sprintSpeed;
 
             if (sprintCounter > playerInfo.sprintCostRate)
             {
                 if (!playerInfo.stamina.Substract(1))
                 {
-                    dirSpeed /= playerInfo.sprintSpeed;
+                    rigid.velocity /= playerInfo.sprintSpeed;
                     playerInfo.isOnSprint = false;
                 }
 
@@ -129,11 +129,6 @@ public class PlayerMovement : CharacterMovement
                 }
             }
         }
-
-        dir *= characterInfo.moveSpeed * dirSpeed;
-        dir.y = rigid.velocity.y;
-
-        rigid.velocity = dir;
     }
 
     private void Dash()

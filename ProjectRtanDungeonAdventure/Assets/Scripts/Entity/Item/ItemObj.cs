@@ -16,17 +16,30 @@ public class ItemObject : MonoBehaviour, IInteractable
 
     public virtual void OnInteract()
     {
-        foreach (EffectCell cell in itemData.effectCell)
+        if (itemData.type == ITEMTYPE.CONSUMABLE)
         {
-            EffectCell newCell = new EffectCell();
-            newCell.type = cell.type;
-            newCell.effectPower = cell.effectPower;
-            newCell.effectTime = cell.effectTime;
+            foreach (EffectCell cell in itemData.effectCells)
+            {
+                EffectCell newCell = new EffectCell();
+                newCell.type = cell.type;
+                newCell.effectPower = cell.effectPower;
+                newCell.effectTime = cell.effectTime;
 
-            PlayerManager.Instance.playerInfo.AddEffect(newCell);
+                PlayerManager.Instance.playerInfo.AddEffect(newCell);
+            }
+
+            Destroy(gameObject);
         }
 
-        Destroy(gameObject);
+        else if(itemData.type == ITEMTYPE.EQUIPMENT)
+        {
+            ItemData newItem = PlayerManager.Instance.playerInfo.TryEquip(itemData);
+
+            if (newItem != null)
+                Instantiate(newItem.itemPrefab, transform.position + Vector3.up * 1.5f, transform.rotation);
+
+            Destroy(gameObject);
+        }
     }
 
     public void DisplayControll(Transform _cameraTransform)

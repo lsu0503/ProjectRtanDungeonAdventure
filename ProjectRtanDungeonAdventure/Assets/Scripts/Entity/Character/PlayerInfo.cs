@@ -1,5 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Unity.VisualScripting.ReorderableList.Element_Adder_Menu;
+using UnityEditor;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class PlayerInfo : CharacterInfo
 {
@@ -24,6 +28,8 @@ public class PlayerInfo : CharacterInfo
 
     [SerializeField] private List<EffectCell> effects = new List<EffectCell>();
 
+    [SerializeField] private ItemData equipment;
+
     private void Awake()
     {
         PlayerManager.Instance.playerInfo = this;
@@ -34,6 +40,9 @@ public class PlayerInfo : CharacterInfo
         base.Start();
         stamina.Initailize();
         gem.Initailize();
+
+        if(equipment != null)
+            EquipItem(equipment);
     }
 
     protected override void FixedUpdate()
@@ -60,31 +69,146 @@ public class PlayerInfo : CharacterInfo
     {
         effects.Add(cell);
 
-        switch (cell.type)
-        {
-            case EFFECTTYPE.HEALTH:
-                health.recover += cell.effectPower;
-                break;
-
-            case EFFECTTYPE.STAMINA:
-                stamina.recover += cell.effectPower;
-                break;
-        }
+        AddAttribute(cell);
     }
 
     public void EndEffect(EffectCell cell)
     {
-        switch(cell.type)
+        SubstactAttribute(cell);
+
+        effects.Remove(cell);
+    }
+
+    public void EquipItem(ItemData item)
+    {
+        equipment = item;
+
+        foreach(EffectCell cell in item.effectCells)
         {
-            case EFFECTTYPE.HEALTH:
+            AddAttribute(cell);
+        }
+    }
+
+    public ItemData UnEquipItem()
+    {
+        foreach (EffectCell cell in equipment.effectCells)
+        {
+            SubstactAttribute(cell);
+        }
+
+        ItemData resultData = equipment;
+        equipment = null;
+        return resultData;
+    }
+
+    public ItemData TryEquip(ItemData item)
+    {
+        ItemData resultItem = null;
+        
+        if(equipment != null)
+            resultItem = UnEquipItem();
+        EquipItem(item);
+
+        return resultItem;
+    }
+
+    private void AddAttribute(EffectCell cell)
+    {
+        switch (cell.type)
+        {
+            case EFFECTTYPE.HealthRegen:
+                health.recover += cell.effectPower;
+                break;
+
+            case EFFECTTYPE.StaminaRegen:
+                stamina.recover += cell.effectPower;
+                break;
+
+            case EFFECTTYPE.HealthMax:
+                health.max += (int)cell.effectPower;
+
+                if (cell.effectPower > 0)
+                    health.current += (int)cell.effectPower;
+
+                else if (health.current > health.max)
+                    health.current = health.max;
+
+                break;
+
+            case EFFECTTYPE.StaminaMax:
+                stamina.max += (int)cell.effectPower;
+
+                if (cell.effectPower > 0)
+                    stamina.current += (int)cell.effectPower;
+
+                else if (stamina.current > stamina.max)
+                    stamina.current = stamina.max;
+
+                break;
+
+            case EFFECTTYPE.Speed:
+                moveSpeed += cell.effectPower;
+                break;
+
+            case EFFECTTYPE.Jump:
+                jumpPowerOnGround += cell.effectPower;
+                jumpPowerInAir += cell.effectPower * 0.65f;
+                break;
+
+            case EFFECTTYPE.Dash:
+                dashSpeedOnGround += cell.effectPower;
+                dashSpeedInAir += cell.effectPower * 1.25f;
+                break;
+        }
+    }
+
+    private void SubstactAttribute(EffectCell cell)
+    {
+        switch (cell.type)
+        {
+            case EFFECTTYPE.HealthRegen:
                 health.recover -= cell.effectPower;
                 break;
 
-            case EFFECTTYPE.STAMINA:
+            case EFFECTTYPE.StaminaRegen:
                 stamina.recover -= cell.effectPower;
                 break;
-        }
 
-        effects.Remove(cell);
+            case EFFECTTYPE.HealthMax:
+                health.max += (int)cell.effectPower;
+
+                if (cell.effectPower < 0)
+                    health.current -= (int)cell.effectPower;
+
+                else if (health.current < health.max)
+                    health.current = health.max;
+
+                break;
+
+            case EFFECTTYPE.StaminaMax:
+                stamina.max -= (int)cell.effectPower;
+
+                if (cell.effectPower < 0)
+                    stamina.current += (int)cell.effectPower;
+
+                else if (stamina.current < stamina.max)
+                    stamina.current = stamina.max;
+
+                break;
+
+            case EFFECTTYPE.Speed:
+                moveSpeed -= cell.effectPower;
+                break;
+
+            case EFFECTTYPE.Jump:
+                jumpPowerOnGround -= cell.effectPower;
+                jumpPowerInAir -= cell.effectPower * 0.65f;
+                break;
+
+            case EFFECTTYPE.Dash:
+                dashSpeedOnGround -= cell.effectPower;
+                dashSpeedInAir -= cell.effectPower * 1.25f;
+                break;
+        }
     }
 }
