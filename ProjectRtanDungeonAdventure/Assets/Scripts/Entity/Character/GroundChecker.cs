@@ -20,7 +20,22 @@ public class GroundChecker : MonoBehaviour
     private void FixedUpdate()
     {
         if (Time.time - groundCheckTime > groundCheckRate)
-            GroundCheck();
+        {
+            if (GroundCheck())
+            {
+                characterInfo.isOnGround = true;
+                isOnGround = true;
+
+                if (!characterInfo.isMovable && characterInfo.MoveBlockTime <= 0)
+                    characterInfo.isMovable = true;
+            }
+
+            else
+            {
+                characterInfo.isOnGround = false;
+                isOnGround = false;
+            }
+        }
 
         if(ground != null)
         {
@@ -67,8 +82,6 @@ public class GroundChecker : MonoBehaviour
                     groundPosition = hit.transform.position;
                 }
 
-                characterInfo.isOnGround = true;
-                isOnGround = true;
                 return true;
             }
         }
@@ -76,8 +89,6 @@ public class GroundChecker : MonoBehaviour
         ground = null;
         groundPosition = Vector3.zero;
 
-        characterInfo.isOnGround = false;
-        isOnGround = false;
         return false;
     }
 }

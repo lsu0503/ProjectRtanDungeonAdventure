@@ -24,7 +24,8 @@ public class CharacterMovement : MonoBehaviour
 
     protected virtual void FixedUpdate()
     {
-        Move();
+        if(characterInfo.isMovable)
+            Move();
     }
 
     protected virtual void Move()
@@ -39,6 +40,10 @@ public class CharacterMovement : MonoBehaviour
 
     protected virtual void GetMoveDir(Vector2 vector)
     {
-        moveDir = vector;
+        if (characterInfo.isMovable)
+            moveDir = vector;
+
+        else
+            moveDir = Vector3.zero;
     }
 }

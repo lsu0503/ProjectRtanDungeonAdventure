@@ -2333,6 +2333,7 @@ GameObject:
   - component: {fileID: 868692061}
   - component: {fileID: 868692063}
   - component: {fileID: 868692064}
+  - component: {fileID: 868692065}
   m_Layer: 6
   m_Name: TrainTotal
   m_TagString: Untagged
@@ -2423,6 +2424,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &868692065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 868692060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f1538c5f23be9d44b4871937d61ecc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  strikeDamage: 35
+  strikePower: 15
+  targetLayers:
+    serializedVersion: 2
+    m_Bits: 896
 --- !u!1 &892047272
 GameObject:
   m_ObjectHideFlags: 0
@@ -2435,6 +2453,7 @@ GameObject:
   - component: {fileID: 892047275}
   - component: {fileID: 892047274}
   - component: {fileID: 892047273}
+  - component: {fileID: 892047277}
   m_Layer: 6
   m_Name: ThrowingPannel_0
   m_TagString: Untagged
@@ -2483,7 +2502,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bd94e00ac5ecc40478006e590118f7b0, type: 2}
+  - {fileID: 2100000, guid: 261dd4684cb33b645a6f1baeb687475e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2528,6 +2547,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 29051630}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &892047277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 892047272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d748f3d63b38a84db0a338141bb32e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  launchDirection: {x: 0, y: 0.5, z: -1}
+  launchPower: 27
+  launchTime: 1.5
+  launchDelay: 2.5
+  targetLayers:
+    serializedVersion: 2
+    m_Bits: 896
+  passengers: []
 --- !u!1 &914587790
 GameObject:
   m_ObjectHideFlags: 0
@@ -2578,6 +2617,7 @@ GameObject:
   - component: {fileID: 923953601}
   - component: {fileID: 923953600}
   - component: {fileID: 923953599}
+  - component: {fileID: 923953603}
   m_Layer: 6
   m_Name: ThrowingPannel_1
   m_TagString: Untagged
@@ -2626,7 +2666,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bd94e00ac5ecc40478006e590118f7b0, type: 2}
+  - {fileID: 2100000, guid: 261dd4684cb33b645a6f1baeb687475e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2671,6 +2711,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 29051630}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &923953603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 923953598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d748f3d63b38a84db0a338141bb32e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  launchDirection: {x: 0, y: 0.5, z: -1}
+  launchPower: 27
+  launchTime: 1.5
+  launchDelay: 2.5
+  targetLayers:
+    serializedVersion: 2
+    m_Bits: 896
+  passengers: []
 --- !u!1 &949529810
 GameObject:
   m_ObjectHideFlags: 0
@@ -3422,6 +3482,8 @@ MonoBehaviour:
     uiBar: {fileID: 1187186321}
   moveSpeed: 8
   isOnGround: 0
+  isMovable: 0
+  MoveBlockTime: 0
   stamina:
     max: 100
     current: 0
@@ -5030,6 +5092,7 @@ GameObject:
   - component: {fileID: 1980134621}
   - component: {fileID: 1980134620}
   - component: {fileID: 1980134619}
+  - component: {fileID: 1980134623}
   m_Layer: 6
   m_Name: ThrowingPannel_2
   m_TagString: Untagged
@@ -5078,7 +5141,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bd94e00ac5ecc40478006e590118f7b0, type: 2}
+  - {fileID: 2100000, guid: 261dd4684cb33b645a6f1baeb687475e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5123,6 +5186,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 29051630}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1980134623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1980134618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d748f3d63b38a84db0a338141bb32e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  launchDirection: {x: 0, y: 0.5, z: 1}
+  launchPower: 27
+  launchTime: 1.5
+  launchDelay: 2.5
+  targetLayers:
+    serializedVersion: 2
+    m_Bits: 896
+  passengers: []
 --- !u!1 &1993350203
 GameObject:
   m_ObjectHideFlags: 0
@@ -8636,7 +8719,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 180c9256ecdbad44886ce57addd4ac16, type: 2}
+  - {fileID: 2100000, guid: 9c666f676189b2d40a93b6fd8eb79952, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9711,7 +9794,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 180c9256ecdbad44886ce57addd4ac16, type: 2}
+  - {fileID: 2100000, guid: 9c666f676189b2d40a93b6fd8eb79952, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10272,7 +10355,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 180c9256ecdbad44886ce57addd4ac16, type: 2}
+  - {fileID: 2100000, guid: 9c666f676189b2d40a93b6fd8eb79952, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10898,7 +10981,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 180c9256ecdbad44886ce57addd4ac16, type: 2}
+  - {fileID: 2100000, guid: 9c666f676189b2d40a93b6fd8eb79952, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -25,25 +25,28 @@ public class PlayerMovement : CharacterMovement
 
     protected override void FixedUpdate()
     {
-        if (isOnDash)
+        if (playerInfo.isMovable)
         {
-            Dash();
-
-            DashCounter += Time.deltaTime;
-            if (DashCounter >= DashTimeMax)
+            if (isOnDash)
             {
-                isOnDash = false;
-                DashCounter = 0.0f;
+                Dash();
+
+                DashCounter += Time.deltaTime;
+                if (DashCounter >= DashTimeMax)
+                {
+                    isOnDash = false;
+                    DashCounter = 0.0f;
+                }
             }
-        }
 
-        else
-            Move();
+            else
+                Move();
 
-        if(transform.position.y < 0)
-        {
-            playerInfo.health.Substract(25);
-            transform.position = new Vector3(Random.Range(-35.0f, 35.0f), 8.5f, Random.Range(-35.0f, 35.0f));
+            if (transform.position.y < 0)
+            {
+                playerInfo.GetDamage(25);
+                transform.position = new Vector3(Random.Range(-35.0f, 35.0f), 8.5f, Random.Range(-35.0f, 35.0f));
+            }
         }
     }
 
@@ -55,46 +58,52 @@ public class PlayerMovement : CharacterMovement
 
     private void TryJump()
     {
-        if (characterInfo.isOnGround)
+        if (playerInfo.isMovable)
         {
-            if (playerInfo.stamina.Substract(playerInfo.jumpCostOnGound))
-                rigid.AddForce(Vector2.up * playerInfo.jumpPowerOnGround, ForceMode.Impulse);
-        }
-
-        else
-        {
-            if (playerInfo.stamina.Substract(playerInfo.jumpCostInAir))
+            if (characterInfo.isOnGround)
             {
-                if(rigid.velocity.y >= 0)
-                    rigid.AddForce(Vector2.up * playerInfo.jumpPowerInAir, ForceMode.Impulse);
+                if (playerInfo.stamina.Substract(playerInfo.jumpCostOnGound))
+                    rigid.AddForce(Vector2.up * playerInfo.jumpPowerOnGround, ForceMode.Impulse);
+            }
 
-                else
-                    rigid.velocity = new Vector3(rigid.velocity.x, playerInfo.jumpPowerInAir / rigid.mass, rigid.velocity.z);
+            else
+            {
+                if (playerInfo.stamina.Substract(playerInfo.jumpCostInAir))
+                {
+                    if (rigid.velocity.y >= 0)
+                        rigid.AddForce(Vector2.up * playerInfo.jumpPowerInAir, ForceMode.Impulse);
+
+                    else
+                        rigid.velocity = new Vector3(rigid.velocity.x, playerInfo.jumpPowerInAir / rigid.mass, rigid.velocity.z);
+                }
             }
         }
     }
 
     private void TryDash()
     {
-        if (!isOnDash && moveDir.magnitude > 0.5f)
+        if (playerInfo.isMovable)
         {
-            if (characterInfo.isOnGround)
+            if (!isOnDash && moveDir.magnitude > 0.5f)
             {
-                if (playerInfo.stamina.Substract(playerInfo.dashCostOnGround))
+                if (characterInfo.isOnGround)
                 {
-                    DashTimeMax = playerInfo.dashTimeOnGround;
-                    isOnGround = true;
-                    isOnDash = true;
+                    if (playerInfo.stamina.Substract(playerInfo.dashCostOnGround))
+                    {
+                        DashTimeMax = playerInfo.dashTimeOnGround;
+                        isOnGround = true;
+                        isOnDash = true;
+                    }
                 }
-            }
 
-            else
-            {
-                if (playerInfo.stamina.Substract(playerInfo.dashCostInAir))
+                else
                 {
-                    DashTimeMax = playerInfo.dashTimeInAir;
-                    isOnGround = false;
-                    isOnDash = true;
+                    if (playerInfo.stamina.Substract(playerInfo.dashCostInAir))
+                    {
+                        DashTimeMax = playerInfo.dashTimeInAir;
+                        isOnGround = false;
+                        isOnDash = true;
+                    }
                 }
             }
         }
@@ -102,10 +111,21 @@ public class PlayerMovement : CharacterMovement
 
     private void SprintTrigger(bool isOn)
     {
-        isSprint = isOn;
-
-        if (!isOn)
+        if (playerInfo.isMovable)
         {
+            isSprint = isOn;
+
+            if (!isOn)
+            {
+                sprintCounter = float.MaxValue;
+                playerInfo.isOnSprint = false;
+            }
+        }
+
+        else
+        {
+            isSprint = false;
+
             sprintCounter = float.MaxValue;
             playerInfo.isOnSprint = false;
         }

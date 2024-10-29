@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class ObjectLauncher : MonoBehaviour
+public class ObjectBouncing : MonoBehaviour
 {
     [SerializeField] private Vector3 direction;
     [SerializeField] private float power;
