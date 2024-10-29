@@ -37,7 +37,7 @@ public class Monster : MonoBehaviour
 
         if (playerDistance <= attackDistance)
         {
-            if (Time.time - AttackedTime > attackSpeed && CheckAttackAngle())
+            if (Time.time - AttackedTime > attackSpeed && CheckAttackAngle() && CheckHeight())
             {
                 AttackedTime = Time.time;
                 Attack();
@@ -101,5 +101,17 @@ public class Monster : MonoBehaviour
         direction.y = transform.position.y;
         float angle = Vector3.Angle(transform.forward, direction);
         return angle < AttackAngle * 0.5f;
+    }
+
+    private bool CheckHeight()
+    {
+        if (playerTransform.position.y > transform.position.y + 1.0f)
+            return false;
+
+        else if (playerTransform.position.y < transform.position.y - 1.0f)
+            return false;
+
+        else
+            return true;
     }
 }
