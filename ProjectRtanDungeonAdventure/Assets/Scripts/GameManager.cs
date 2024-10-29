@@ -26,11 +26,6 @@ public class GameManager: GenericSingleton<GameManager>
 
     public SCENE currentScene;
 
-    private void Start()
-    {
-        InitGame();
-    }
-
     private void FixedUpdate()
     {
         if(currentScene == SCENE.MAINSCENE)
@@ -50,8 +45,17 @@ public class GameManager: GenericSingleton<GameManager>
         timeStack = 9;
         timeGauge = 20.0f;
 
-        Cursor.lockState = CursorLockMode.Locked;
-        isMouseLocked = true;
+        if (currentScene == SCENE.MAINSCENE)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            isMouseLocked = true;
+        }
+
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+            isMouseLocked = false;
+        }
 
         if(gameOverUI != null)
             gameOverUI.SetActive(false);
