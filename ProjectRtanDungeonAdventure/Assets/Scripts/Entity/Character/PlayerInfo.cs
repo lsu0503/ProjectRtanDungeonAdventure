@@ -32,7 +32,7 @@ public class PlayerInfo : CharacterInfo
 
     private void Awake()
     {
-        PlayerManager.Instance.playerInfo = this;
+        GameManager.Instance.playerInfo = this;
     }
 
     protected override void Start()

@@ -11,7 +11,6 @@ public class Camerahandler : MonoBehaviour
     private float camCurXRot;
     [SerializeField] private float lookSensitivity;
     private Vector2 mouseDelta;
-    [SerializeField] private bool canLook = true;
 
     private void Awake()
     {
@@ -20,13 +19,12 @@ public class Camerahandler : MonoBehaviour
 
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
         controller.OnLookEvent += GetDelta;
     }
 
     private void LateUpdate()
     {
-        if (canLook)
+        if (GameManager.Instance.isMouseLocked)
             CameraLook();
     }
 

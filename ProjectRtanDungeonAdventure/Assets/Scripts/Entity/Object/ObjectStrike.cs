@@ -6,25 +6,32 @@ public class ObjectStrike : MonoBehaviour
     [SerializeField] private float strikePower;
     [SerializeField] private LayerMask targetLayers;
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if ((targetLayers & (1 << collision.gameObject.layer)) != 0)
+        if ((targetLayers & (1 << other.gameObject.layer)) != 0)
         {
-            Rigidbody targetRigid = collision.gameObject.GetComponent<Rigidbody>();
-            CharacterInfo targetInfo = collision.gameObject.GetComponent<CharacterInfo>();
+            Rigidbody targetRigid = other.gameObject.GetComponent<Rigidbody>();
+            CharacterInfo targetInfo = other.gameObject.GetComponent<CharacterInfo>();
 
             if (targetInfo != null)
             {
-                targetInfo.GetDamage(strikeDamage);
+                int resultDamage = (int)(strikeDamage * (1 - (GameManager.Instance.trainCalm / 100.0f)));
+                targetInfo.GetDamage(resultDamage);
+                GameManager.Instance.GetTrainCalm(resultDamage);
+
                 targetInfo.isMovable = false;
                 targetInfo.MoveBlockTime = 0.2f;
+
             }
 
             if (targetRigid != null)
             {
-                Vector3 transOrigin = transform.position + (transform.forward * 16.5f);
+                Vector3 transOrigin = transform.position;
+                transOrigin.y = 4.2f;
 
-                targetRigid.AddForce(((collision.transform.position - transOrigin).normalized + Vector3.up) * strikePower, ForceMode.VelocityChange);
+                float resultPower = strikePower * (1 - (GameManager.Instance.trainCalm / 100.0f));
+
+                targetRigid.AddForce(((other.transform.position - transOrigin).normalized + Vector3.up) * resultPower, ForceMode.VelocityChange);
             }
         }
     }

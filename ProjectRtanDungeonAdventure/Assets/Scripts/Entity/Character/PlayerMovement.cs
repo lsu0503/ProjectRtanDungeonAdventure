@@ -41,12 +41,12 @@ public class PlayerMovement : CharacterMovement
 
             else
                 Move();
+        }
 
-            if (transform.position.y < 0)
-            {
-                playerInfo.GetDamage(25);
-                transform.position = new Vector3(Random.Range(-35.0f, 35.0f), 8.5f, Random.Range(-35.0f, 35.0f));
-            }
+        if (transform.position.y < 0)
+        {
+            characterInfo.GetDamage(25);
+            transform.position = new Vector3(Random.Range(-35.0f, 35.0f), 8.5f, Random.Range(-35.0f, 35.0f));
         }
     }
 

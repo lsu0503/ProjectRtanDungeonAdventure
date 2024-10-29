@@ -18,6 +18,8 @@ public class ItemObject : MonoBehaviour, IInteractable
     {
         if (itemData.type == ITEMTYPE.CONSUMABLE)
         {
+            GameManager.Instance.GetScore(1);
+
             foreach (EffectCell cell in itemData.effectCells)
             {
                 EffectCell newCell = new EffectCell();
@@ -25,7 +27,7 @@ public class ItemObject : MonoBehaviour, IInteractable
                 newCell.effectPower = cell.effectPower;
                 newCell.effectTime = cell.effectTime;
 
-                PlayerManager.Instance.playerInfo.AddEffect(newCell);
+                GameManager.Instance.playerInfo.AddEffect(newCell);
             }
 
             Destroy(gameObject);
@@ -33,7 +35,7 @@ public class ItemObject : MonoBehaviour, IInteractable
 
         else if(itemData.type == ITEMTYPE.EQUIPMENT)
         {
-            ItemData newItem = PlayerManager.Instance.playerInfo.TryEquip(itemData);
+            ItemData newItem = GameManager.Instance.playerInfo.TryEquip(itemData);
 
             if (newItem != null)
                 Instantiate(newItem.itemPrefab, transform.position + Vector3.up * 1.5f, transform.rotation);

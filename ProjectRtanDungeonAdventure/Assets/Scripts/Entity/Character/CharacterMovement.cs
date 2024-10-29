@@ -26,6 +26,12 @@ public class CharacterMovement : MonoBehaviour
     {
         if(characterInfo.isMovable)
             Move();
+
+        if (transform.position.y < 0)
+        {
+            characterInfo.GetDamage(25);
+            transform.position = new Vector3(UnityEngine.Random.Range(-35.0f, 35.0f), 8.5f, UnityEngine.Random.Range(-35.0f, 35.0f));
+        }
     }
 
     protected virtual void Move()

@@ -8,7 +8,7 @@ public class ItemGenerator : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(Time.time - generateTime > generateRate)
+        if(Time.time - generateTime > generateRate / (1.0 + (0.2 * GameManager.Instance.scoreLevel)))
         {
             generateTime = Time.time;
 

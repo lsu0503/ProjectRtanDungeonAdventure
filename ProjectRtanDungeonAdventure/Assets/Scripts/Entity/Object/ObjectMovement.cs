@@ -40,7 +40,7 @@ public class ObjectMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        transform.position += transform.forward * velocity * Time.deltaTime;
+        transform.position += transform.forward * velocity * Time.deltaTime * (1 - (GameManager.Instance.trainCalm / 100.0f));
 
         if (Time.time - MovingEventTime > MovingEventRate)
         {

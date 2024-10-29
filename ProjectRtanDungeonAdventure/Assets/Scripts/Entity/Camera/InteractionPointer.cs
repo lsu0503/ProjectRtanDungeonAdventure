@@ -21,7 +21,8 @@ public class InteractionPointer : MonoBehaviour
     private void Start()
     {
         targetCamera = Camera.main;
-        playerInfo = PlayerManager.Instance.playerInfo;
+        playerInfo = GameManager.Instance.playerInfo;
+        lastCheckTime = Time.time;
     }
 
     private void FixedUpdate()
