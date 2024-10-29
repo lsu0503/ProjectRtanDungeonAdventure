@@ -26,10 +26,8 @@ public class CharacterInfo : MonoBehaviour
             MoveBlockTime -= Time.deltaTime;
     }
 
-    public virtual bool GetDamage(int amount)
+    public virtual void GetDamage(int amount)
     {
-        bool result = health.Substract(amount);
-
-        return result;
+        health.Substract(amount);
     }
 }

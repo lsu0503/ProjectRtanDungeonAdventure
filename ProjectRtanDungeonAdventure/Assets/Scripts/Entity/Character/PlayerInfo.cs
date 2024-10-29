@@ -211,4 +211,10 @@ public class PlayerInfo : CharacterInfo
                 break;
         }
     }
+
+    public override void GetDamage(int amount)
+    {
+        if (!health.Substract(amount))
+            GameManager.Instance.GameOver();
+    }
 }

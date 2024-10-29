@@ -96,7 +96,7 @@ public class GameManager: GenericSingleton<GameManager>
             trainCalm = 40.0f;
     }
 
-    private void GameOver()
+    public void GameOver()
     {
         Time.timeScale = 0.0f;
         Cursor.lockState = CursorLockMode.None;
