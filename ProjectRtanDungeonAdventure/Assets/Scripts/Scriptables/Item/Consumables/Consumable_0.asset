@@ -20,5 +20,5 @@ MonoBehaviour:
   type: 0
   effectCells:
   - type: 0
-    effectPower: 15
+    effectPower: 1
     effectTime: 30
