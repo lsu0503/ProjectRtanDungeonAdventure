@@ -137,12 +137,15 @@ public class PlayerMovement : CharacterMovement
 
     protected override void Move()
     {
+        Vector3 velocityDir;
+
         if (moveDir.magnitude > 0.5f)
         {
             Vector3 dir = cameraTransform.forward * moveDir.y;
             dir.y = 0.0f;
             dir = dir.normalized;
             dir += cameraTransform.right * moveDir.x;
+            transform.forward = dir;
 
             float speedMultiplyer = 1.0f;
             if (isSprint && moveDir.magnitude > 0.5f && playerInfo.isOnGround)
@@ -166,12 +169,16 @@ public class PlayerMovement : CharacterMovement
                 }
             }
 
-            transform.forward = dir;
-            rigid.velocity = transform.forward * characterInfo.moveSpeed * speedMultiplyer;
+            velocityDir = transform.forward * characterInfo.moveSpeed * speedMultiplyer;
         }
 
         else
-            rigid.velocity = Vector3.zero;
+        {
+            velocityDir = Vector3.zero;
+        }
+
+        velocityDir.y = rigid.velocity.y;
+        rigid.velocity = velocityDir;
     }
 
     private void Dash()
