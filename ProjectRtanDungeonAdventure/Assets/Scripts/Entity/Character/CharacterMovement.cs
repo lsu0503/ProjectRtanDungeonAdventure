@@ -1,6 +1,4 @@
-﻿using System;
-using TMPro.EditorUtilities;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour
 {

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using Unity.VisualScripting.ReorderableList.Element_Adder_Menu;
-using UnityEditor;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class PlayerInfo : CharacterInfo
 {
