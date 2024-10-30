@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerMovement : CharacterMovement
 {
     private PlayerInfo playerInfo;
+    [SerializeField] private Transform cameraTransform;
 
     private bool isSprint;
     private float sprintCounter = float.MaxValue;
@@ -52,8 +53,11 @@ public class PlayerMovement : CharacterMovement
 
     protected override void GetMoveDir(Vector2 vector)
     {
-        if(!isOnDash)
+        if (!isOnDash)
+        {
             base.GetMoveDir(vector);
+        }
+
     }
 
     private void TryJump()
@@ -133,28 +137,41 @@ public class PlayerMovement : CharacterMovement
 
     protected override void Move()
     {
-        base.Move();
-
-        if (isSprint && moveDir.magnitude > 0.5f && playerInfo.isOnGround)
+        if (moveDir.magnitude > 0.5f)
         {
-            sprintCounter += Time.deltaTime;
-            rigid.velocity *= playerInfo.sprintSpeed;
+            Vector3 dir = cameraTransform.forward * moveDir.y;
+            dir.y = 0.0f;
+            dir = dir.normalized;
+            dir += cameraTransform.right * moveDir.x;
 
-            if (sprintCounter > playerInfo.sprintCostRate)
+            float speedMultiplyer = 1.0f;
+            if (isSprint && moveDir.magnitude > 0.5f && playerInfo.isOnGround)
             {
-                if (!playerInfo.stamina.Substract(1))
-                {
-                    rigid.velocity /= playerInfo.sprintSpeed;
-                    playerInfo.isOnSprint = false;
-                }
+                sprintCounter += Time.deltaTime;
+                speedMultiplyer *= playerInfo.sprintSpeed;
 
-                else
+                if (sprintCounter > playerInfo.sprintCostRate)
                 {
-                    sprintCounter = 0.0f;
-                    playerInfo.isOnSprint = true;
+                    if (!playerInfo.stamina.Substract(1))
+                    {
+                        speedMultiplyer /= playerInfo.sprintSpeed;
+                        playerInfo.isOnSprint = false;
+                    }
+
+                    else
+                    {
+                        sprintCounter = 0.0f;
+                        playerInfo.isOnSprint = true;
+                    }
                 }
             }
+
+            transform.forward = dir;
+            rigid.velocity = transform.forward * characterInfo.moveSpeed * speedMultiplyer;
         }
+
+        else
+            rigid.velocity = Vector3.zero;
     }
 
     private void Dash()

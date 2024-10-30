@@ -36,12 +36,13 @@ public class CharacterMovement : MonoBehaviour
 
     protected virtual void Move()
     {
-        Vector3 dir = transform.forward * moveDir.y + transform.right * moveDir.x;
-        float dirSpeed = (0.7f + (moveDir.y * 0.3f));
-        dir *= characterInfo.moveSpeed * dirSpeed;
-        dir.y = rigid.velocity.y;
+        Vector3 dir = new Vector3(moveDir.x, 0.0f, moveDir.y);
+        transform.forward = dir;
 
-        rigid.velocity = dir;
+        if(moveDir.magnitude > 0.5f)
+            rigid.velocity = transform.forward * characterInfo.moveSpeed;
+        else
+            rigid.velocity = Vector3.zero;
     }
 
     protected virtual void GetMoveDir(Vector2 vector)
@@ -50,6 +51,6 @@ public class CharacterMovement : MonoBehaviour
             moveDir = vector;
 
         else
-            moveDir = Vector3.zero;
+            moveDir = Vector2.zero;
     }
 }
