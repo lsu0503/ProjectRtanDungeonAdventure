@@ -2,7 +2,7 @@
  ProjectRtanDungeonAdventure
 
 ## 프로젝트 현황
-최종 제목: 도시에 곰(공)이?! [The Bear(Balls) in the city?!]<br/>
+최종 제목: 도시에 곰(공)이?!<br/>
 사용 툴: Unity<br/>
 개발 기간: 10월 23일 ~ 10월 30일 (총 8일)
 
