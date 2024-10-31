@@ -8,15 +8,18 @@ public class GenericSingleton<T> : MonoBehaviour where T : MonoBehaviour
     {
         get
         {
-            T tempComp = GameObject.FindObjectOfType<T>();
-
-            if(tempComp == null)
+            if (instance == null)
             {
-                GameObject tempObj = new GameObject(typeof(T).Name);
-                tempComp = tempObj.AddComponent<T>();
+                T tempComp = GameObject.FindObjectOfType<T>();
+
+                if (tempComp == null)
+                {
+                    GameObject tempObj = new GameObject(typeof(T).Name);
+                    tempComp = tempObj.AddComponent<T>();
+                }
+
+                instance = tempComp;
             }
-            
-            instance = tempComp;
             return instance;
         }
     }
